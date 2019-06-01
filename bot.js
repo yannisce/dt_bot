@@ -3,7 +3,7 @@ const bot = new Discord.Client({disableEveryone: true});
 const fs = require('fs');
 const dot_env = require('dotenv');
 const fetch = require('node-fetch');
-const CronJob = require('cron').CronJob;
+const cron_job = require('cron').CronJob;
 const bot_config = require('./bot_config.json');
 const rotation = require('./rotation.json');
 const auth = require('./functions').authenticate;
@@ -19,7 +19,7 @@ dot_env.config();
 let fractalsIDs = [];
 let nextfractalsIDs = [];
 
-(async () => {
+async function callAPI() {
     try {
         await fetch('https://api.guildwars2.com/v2/achievements/daily')
                 .then(res => res.json())
@@ -38,7 +38,12 @@ let nextfractalsIDs = [];
     } catch (error) {
         console.log(error);
     }
-})();
+}
+
+function clearFractalLists() {
+    fractalsIDs = [];
+    nextfractalsIDs = [];
+}
 
 function getDaily(now) {
     let tier_4;
@@ -109,15 +114,17 @@ bot.on('ready', async () => {
      });    
 });
 
-var cronJob1 = new CronJob({
-    cronTime: '16 0 * * *',
-    onTick: function () {
+var cron_job_1 = new cron_job({
+    cronTime: '59 23 * * *',
+    onTick: async function () {
+        await callAPI();
         let channels = getChannels();
         channels.forEach(channel => {
             let generalChannel = bot.channels.get(channel.id);
-            let daily = getDaily(true);
+            let daily = getDaily(false);
             generalChannel.send({files: [`./assets/fractal_rotation/${daily}.png`]});
         });
+        clearFractalLists();
     },
     start: true,
     runOnInit: false,
@@ -188,15 +195,19 @@ try {
     switch(cmd) {
 
         case `${prefix}today`:
-            
+            await callAPI();    
+
             const today = getDaily(true);
+            clearFractalLists();
             return message.channel.send({files: [`./assets/fractal_rotation/${today}.png`]});
             
         break;
 
         case `${prefix}tomorrow`:
+            await callAPI();  
 
             const tomorrow = getDaily(false);
+            clearFractalLists();
             return message.channel.send({files: [`./assets/fractal_rotation/${tomorrow}.png`]});
 
         break;
