@@ -180,7 +180,7 @@ bot.on('message', async message => {
 try {
     let prefix = bot_config.prefix;
     let messageArray = message.content.split(' ');
-    let input_prefix = messageArray[0][0] + messageArray[0][1]; 
+    let input_prefix = messageArray[0][0];
     let cmd = messageArray[0].toLowerCase();
     let args = messageArray.slice(1);
     args = args.map(arg => arg.toLowerCase());
