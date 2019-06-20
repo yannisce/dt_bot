@@ -7,12 +7,7 @@ const cron_job = require('cron').CronJob;
 const bot_config = require('./bot_config.json');
 const rotation = require('./rotation.json');
 const auth = require('./functions').authenticate;
-const id_array = 
-[
-    2966, 3458, 2932, 2989, 2952, 3177, 2948, 2939, 2967, 3038, 2930, 3973, 2932, 2947, 4224, 3177, 2952, 2923, 
-    3038, 2939, 2941, 4224, 4494, 2903, 3973, 2947, 2966, 2892, 3458, 2989, 2952, 2967, 2956, 2947, 2923, 2941,
-    3038, 2948, 3177, 4494, 2930, 2966, 2892, 4224, 2923
-];
+const id_array = require('./id_array.json');
 
 dot_env.config();
 
@@ -185,12 +180,13 @@ bot.on('message', async message => {
 try {
     let prefix = bot_config.prefix;
     let messageArray = message.content.split(' ');
+    let input_prefix = messageArray[0][0] + messageArray[0][1]; 
     let cmd = messageArray[0].toLowerCase();
     let args = messageArray.slice(1);
     args = args.map(arg => arg.toLowerCase());
-    
+
     let command_file = bot.commands.get(cmd.slice(prefix.length));
-    if  (command_file) command_file.run(bot, message, args);
+    if  (command_file && input_prefix === prefix) command_file.run(bot, message, args);
 
     switch(cmd) {
 
@@ -220,25 +216,6 @@ try {
                 general_channel.send(args[0]);
              });
         }
-        break;
-
-        case `${prefix}announce`:
-        if (auth(message.author.id)) {
-
-            const channels = getChannels();
-            channels.forEach(function(channel) {
-            let general_channel = bot.channels.get(channel.id)
-            let update = new Discord.RichEmbed()
-            .setColor('#36393f')
-            .attachFiles(['./assets/photos/logo.png','./assets/photos/logo2.png'])    
-            .setAuthor('Discretize.eu', 'attachment://logo2.png', 'https://discretize.eu/')
-            .setThumbnail('attachment://logo.png')
-            .setTitle('__Update Incoming__')
-            .addField('- Changed nothing\n- Changed nothing again', 'Version 1.0' , true) 
-            general_channel.send(update);
-
-        });
-    }
         break;
 
         default:
