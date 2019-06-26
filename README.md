@@ -10,9 +10,5 @@
   </p>
   
  ## Official Discretize Discord Bot
- 
- <a href="https://discordbots.org/bot/580364648654569474" >
-  <img src="https://discordbots.org/api/widget/580364648654569474.svg" alt="Discretize" />
-</a>
    
 </div>
