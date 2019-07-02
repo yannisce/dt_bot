@@ -5,7 +5,7 @@
   </p>
   <p>
     <a href="https://discord.gg/BnkNqZx"><img src="https://discordapp.com/api/guilds/301270513093967872/embed.png"/></a>
-    <a href="link here"><img src="https://img.shields.io/badge/Invite-Bot-red.svg"/></a>
+    <a href="https://discordbots.org/bot/580364648654569474"><img src="https://img.shields.io/badge/Invite-Bot-red.svg"/></a>
     <a href="https://raw.githubusercontent.com/Cjcrew/dt_bot/master/LICENSE"><img src="https://img.shields.io/badge/License-GPL%20V3-yellow.svg"/></a>
   </p>
   
