@@ -123,8 +123,8 @@ var cron_job_1 = new cron_job({
             let getAutomatedFullRotation = rotation_full[0][daily];
             const automatedDailyEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
-                .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${daily}.png`, './assets/photos/fgspin.gif'])    
-                .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
+                .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${daily}.png`, './assets/photos/fgspin.gif', './assets/photos/logo2.png'])    
+                .setAuthor('Discretize.eu', 'attachment://logo2.png', 'https://discretize.eu/')
                 .setTitle('Today\'s rotation')
                 .setThumbnail('attachment://logo.png')
                 .addField(getAutomatedFullRotation[0], getAutomatedFullRotation[1], true)
