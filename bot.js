@@ -233,7 +233,7 @@ try {
             const tomorrow = getDaily(false);
             clearFractalLists();
 
-            let getTomorrowFullRotation = rotation_full[0][today];
+            let getTomorrowFullRotation = rotation_full[0][tomorrow];
             const tomorrowRichEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
                 .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${tomorrow}.png`, './assets/photos/fgspin.gif'])    
