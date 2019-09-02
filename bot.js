@@ -121,7 +121,7 @@ var cron_job_1 = new cron_job({
             let daily = getDaily(false);
 
             let getFullRotation = rotation_full[0][daily];
-            const dailyRichEmbed = new Discord.RichEmbed()
+            const automatedDailyEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
                 .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${daily}.png`, './assets/photos/fgspin.gif'])    
                 .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
@@ -132,7 +132,7 @@ var cron_job_1 = new cron_job({
                 .setTimestamp()
                 .setFooter('Minecraft', 'attachment://fgspin.gif');
 
-            generalChannel.send(dailyRichEmbed);
+            generalChannel.send(automatedDailyEmbed);
         });
         clearFractalLists();
     },
@@ -212,7 +212,7 @@ try {
             clearFractalLists();
 
             let getFullRotation = rotation_full[0][today];
-            const dailyRichEmbed = new Discord.RichEmbed()
+            const todayRichEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
                 .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${today}.png`, './assets/photos/fgspin.gif'])    
                 .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
@@ -223,7 +223,7 @@ try {
                 .setTimestamp()
                 .setFooter('Minecraft', 'attachment://fgspin.gif');
 
-            return message.channel.send(dailyRichEmbed);
+            return message.channel.send(todayRichEmbed);
             
         break;
 
@@ -233,7 +233,7 @@ try {
             const tomorrow = getDaily(false);
             clearFractalLists();
 
-            const dailyRichEmbed = new Discord.RichEmbed()
+            const tomorrowRichEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
                 .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${tomorrow}.png`, './assets/photos/fgspin.gif'])    
                 .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
@@ -244,7 +244,7 @@ try {
                 .setTimestamp()
                 .setFooter('Minecraft', 'attachment://fgspin.gif');
 
-            return message.channel.send(dailyRichEmbed);
+            return message.channel.send(tomorrowRichEmbed);
 
         break;
 
