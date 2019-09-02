@@ -6,6 +6,7 @@ const fetch = require('node-fetch');
 const cron_job = require('cron').CronJob;
 const bot_config = require('./bot_config.json');
 const rotation = require('./rotation.json');
+const rotation_full = require('./rotation_plus_recs.json');
 const auth = require('./functions').authenticate;
 const id_array = require('./id_array.json');
 
@@ -116,8 +117,22 @@ var cron_job_1 = new cron_job({
         let channels = getChannels();
         channels.forEach(channel => {
             let generalChannel = bot.channels.get(channel.id);
+
             let daily = getDaily(false);
-            generalChannel.send({files: [`./assets/fractal_rotation/${daily}.png`]});
+
+            let getFullRotation = rotation_full[0][daily];
+            const dailyRichEmbed = new Discord.RichEmbed()
+                .setColor('#36393f')
+                .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${daily}.png`, './assets/photos/fgspin.gif'])    
+                .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
+                .setTitle('Today\'s rotation')
+                .setThumbnail('attachment://logo.png')
+                .addField(getFullRotation[0], getFullRotation[1], true)
+                .setImage(`attachment://${daily}.png`)
+                .setTimestamp()
+                .setFooter('Minecraft', 'attachment://fgspin.gif');
+
+            generalChannel.send(dailyRichEmbed);
         });
         clearFractalLists();
     },
@@ -195,7 +210,20 @@ try {
 
             const today = getDaily(true);
             clearFractalLists();
-            return message.channel.send({files: [`./assets/fractal_rotation/${today}.png`]});
+
+            let getFullRotation = rotation_full[0][today];
+            const dailyRichEmbed = new Discord.RichEmbed()
+                .setColor('#36393f')
+                .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${today}.png`, './assets/photos/fgspin.gif'])    
+                .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
+                .setTitle('Today\'s rotation')
+                .setThumbnail('attachment://logo.png')
+                .addField(getFullRotation[0], getFullRotation[1], true)
+                .setImage(`attachment://${today}.png`)
+                .setTimestamp()
+                .setFooter('Minecraft', 'attachment://fgspin.gif');
+
+            return message.channel.send(dailyRichEmbed);
             
         break;
 
@@ -204,7 +232,19 @@ try {
 
             const tomorrow = getDaily(false);
             clearFractalLists();
-            return message.channel.send({files: [`./assets/fractal_rotation/${tomorrow}.png`]});
+
+            const dailyRichEmbed = new Discord.RichEmbed()
+                .setColor('#36393f')
+                .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${tomorrow}.png`, './assets/photos/fgspin.gif'])    
+                .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
+                .setTitle('Tomorrow\'s rotation')
+                .setThumbnail('attachment://logo.png')
+                .addField(getFullRotation[0], getFullRotation[1], true)
+                .setImage(`attachment://${tomorrow}.png`)
+                .setTimestamp()
+                .setFooter('Minecraft', 'attachment://fgspin.gif');
+
+            return message.channel.send(dailyRichEmbed);
 
         break;
 
@@ -213,7 +253,7 @@ try {
             const channels = getChannels();
                 channels.forEach(function(channel) {
                 let general_channel = bot.channels.get(channel.id);
-                general_channel.send(args[0]);
+                general_channel.send(args.join(" "));
              });
         }
         break;
