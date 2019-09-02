@@ -120,14 +120,14 @@ var cron_job_1 = new cron_job({
 
             let daily = getDaily(false);
 
-            let getFullRotation = rotation_full[0][daily];
+            let getAutomatedFullRotation = rotation_full[0][daily];
             const automatedDailyEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
                 .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${daily}.png`, './assets/photos/fgspin.gif'])    
                 .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
                 .setTitle('Today\'s rotation')
                 .setThumbnail('attachment://logo.png')
-                .addField(getFullRotation[0], getFullRotation[1], true)
+                .addField(getAutomatedFullRotation[0], getAutomatedFullRotation[1], true)
                 .setImage(`attachment://${daily}.png`)
                 .setTimestamp()
                 .setFooter('Minecraft', 'attachment://fgspin.gif');
@@ -233,13 +233,14 @@ try {
             const tomorrow = getDaily(false);
             clearFractalLists();
 
+            let getTomorrowFullRotation = rotation_full[0][today];
             const tomorrowRichEmbed = new Discord.RichEmbed()
                 .setColor('#36393f')
                 .attachFiles(['./assets/photos/logo.png', `./assets/fractal_rotation/${tomorrow}.png`, './assets/photos/fgspin.gif'])    
                 .setAuthor('Discretize.eu', message.author.avatarURL, 'https://discretize.eu/')
                 .setTitle('Tomorrow\'s rotation')
                 .setThumbnail('attachment://logo.png')
-                .addField(getFullRotation[0], getFullRotation[1], true)
+                .addField(getTomorrowFullRotation[0], getTomorrowFullRotation[1], true)
                 .setImage(`attachment://${tomorrow}.png`)
                 .setTimestamp()
                 .setFooter('Minecraft', 'attachment://fgspin.gif');
